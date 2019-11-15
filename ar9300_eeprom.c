@@ -25,6 +25,8 @@ const static struct ar9300_layout *layouts[] = {
 static char buffer[64*1024];
 static struct ar9300_eeprom eeproms[AR9300_MAX_EEPROMS];
 
+bool force = false;
+
 int main(int argc, char *argv[])
 {
     int i;
@@ -50,6 +52,11 @@ int main(int argc, char *argv[])
         if (argv[i][0] == '-')
         {
             option = &argv[i][1];
+            if (!force && !strcmp(option, "f"))
+            {
+                force = true;
+                continue;
+            }
             if (!dump && !strcmp(option, "d"))
             {
                 dump = true;
